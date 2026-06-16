@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#2563EB" />
+  <link rel="manifest" href="manifest.json" />
+  <title>빠른 문의하기 · 헬피짐</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="shell">
+    <div class="page-head">
+      <a class="back-btn" href="index.html">←</a>
+      <div>
+        <h2>💬 빠른 문의하기</h2>
+        <p>남겨주시면 데스크에서 빠르게 연락드려요</p>
+      </div>
+    </div>
+
+    <form class="card" data-form="quick">
+      <div class="field">
+        <label>문의 종류 <span class="hint">(복수 선택 가능)</span></label>
+        <div class="chips" data-name="topic">
+          <div class="chip">회원권/요금</div>
+          <div class="chip">PT 상담</div>
+          <div class="chip">GX/그룹수업</div>
+          <div class="chip">운영시간</div>
+          <div class="chip">기타</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>성함</label>
+        <input type="text" name="name" placeholder="성함을 입력해 주세요"
+               data-required="성함을 입력해 주세요." autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label>연락처</label>
+        <input type="tel" name="phone" placeholder="010-0000-0000"
+               data-required="연락처를 입력해 주세요." autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label>문의 내용</label>
+        <textarea name="message" placeholder="궁금하신 내용을 자유롭게 적어주세요"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">문의 남기기</button>
+    </form>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

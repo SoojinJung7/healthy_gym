@@ -1,0 +1,346 @@
+/* =========================================================
+   HEALTHY GYM — 키오스크 랜딩 페이지 공통 스타일
+   디자인: 클린 화이트 + 컬러 포인트
+   브랜드 색을 바꾸려면 아래 --accent 한 줄만 수정하세요.
+   ========================================================= */
+
+:root {
+  --accent: #2563EB;          /* 메인 포인트 컬러 */
+  --accent-dark: #1D4ED8;     /* 눌렀을 때 */
+  --accent-soft: #EFF4FF;     /* 옅은 배경 */
+  --ink: #111827;             /* 기본 글자 */
+  --ink-sub: #6B7280;         /* 보조 글자 */
+  --line: #E5E7EB;            /* 테두리 */
+  --bg: #FFFFFF;
+  --bg-soft: #F7F8FA;
+  --ok: #16A34A;
+  --radius: 22px;
+  --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+  --shadow-lg: 0 18px 50px rgba(17, 24, 39, 0.12);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+               "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  color: var(--ink);
+  background: var(--bg-soft);
+  /* 키오스크: 글자 길게 눌러 선택/복사 방지 */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
+}
+
+/* 입력 요소는 선택 허용 */
+input, textarea { -webkit-user-select: text; user-select: text; }
+
+/* 세로 A4 태블릿 기준 중앙 정렬 컨테이너 */
+.shell {
+  max-width: 760px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 28px 24px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 헤더 ---------- */
+.brand {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.brand .logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: var(--accent);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+.brand h1 {
+  font-size: 30px;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+.brand p {
+  margin: 6px 0 0;
+  color: var(--ink-sub);
+  font-size: 16px;
+}
+
+/* ---------- 메인: 4개 기능 버튼 ---------- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  flex: 1;
+  align-content: center;
+}
+.menu-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px 20px;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 200px;
+  box-shadow: var(--shadow);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.menu-card:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-lg);
+}
+.menu-card .ico {
+  width: 84px;
+  height: 84px;
+  border-radius: 24px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+}
+.menu-card .label {
+  font-size: 22px;
+  font-weight: 700;
+}
+.menu-card .desc {
+  font-size: 14px;
+  color: var(--ink-sub);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ---------- 하단 전화 버튼 ---------- */
+.tel-bar {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+}
+.tel-bar a {
+  flex: 1;
+  text-align: center;
+  padding: 18px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+}
+.tel-bar a.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ---------- 서브 페이지 공통 ---------- */
+.page-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.back-btn {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.page-head h2 {
+  font-size: 24px;
+  margin: 0;
+}
+.page-head p { margin: 2px 0 0; color: var(--ink-sub); font-size: 14px; }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+/* ---------- 폼 ---------- */
+.field { margin-bottom: 22px; }
+.field > label {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.field .hint { font-size: 13px; color: var(--ink-sub); font-weight: 400; margin-left: 6px; }
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+textarea {
+  width: 100%;
+  font-size: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+textarea { min-height: 120px; resize: none; }
+
+/* 칩(다중 선택) */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.chip.on {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.submit-btn:active { background: var(--accent-dark); }
+.submit-btn:disabled { opacity: .55; }
+
+/* ---------- 강사 프로필 ---------- */
+.coach-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.coach {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.coach img {
+  width: 96px;
+  height: 96px;
+  border-radius: 18px;
+  object-fit: cover;
+  background: var(--accent-soft);
+  flex: 0 0 96px;
+}
+.coach .info h3 { margin: 0 0 4px; font-size: 20px; }
+.coach .info .role { color: var(--accent); font-weight: 700; font-size: 14px; }
+.coach .info p { margin: 8px 0 0; color: var(--ink-sub); font-size: 14px; line-height: 1.5; }
+.coach .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.coach .tags span {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--ink-sub);
+}
+
+/* ---------- 전송 완료 ---------- */
+.done {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 18px;
+}
+.done .check {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--ok);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+}
+.done h2 { font-size: 28px; margin: 0; }
+.done p { color: var(--ink-sub); font-size: 17px; margin: 0; }
+.done .countdown { font-size: 14px; color: var(--ink-sub); }
+.done a {
+  margin-top: 8px;
+  padding: 16px 34px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* 토스트 */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-size: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+  z-index: 50;
+}
+.toast.show { opacity: 1; }
+
+/* 가로가 넓은 데스크톱에서 미리보기 시 */
+@media (min-width: 900px) {
+  .shell { padding-top: 48px; }
+}

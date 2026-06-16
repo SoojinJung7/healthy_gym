@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#2563EB" />
+  <link rel="manifest" href="manifest.json" />
+  <title>시설 건의하기 · 헬피짐</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="shell">
+    <div class="page-head">
+      <a class="back-btn" href="index.html">←</a>
+      <div>
+        <h2>🛠️ 시설 건의하기</h2>
+        <p>더 나은 센터를 위해 의견을 들려주세요</p>
+      </div>
+    </div>
+
+    <form class="card" data-form="facility">
+      <div class="field">
+        <label>건의 분류 <span class="hint">(복수 선택 가능)</span></label>
+        <div class="chips" data-name="category" data-required="건의 분류를 선택해 주세요.">
+          <div class="chip">운동기구</div>
+          <div class="chip">청결/위생</div>
+          <div class="chip">샤워실/탈의실</div>
+          <div class="chip">냉난방/환기</div>
+          <div class="chip">소음/음악</div>
+          <div class="chip">기타</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>건의 내용</label>
+        <textarea name="message" placeholder="불편하셨던 점이나 개선 아이디어를 적어주세요"
+                  data-required="건의 내용을 입력해 주세요."></textarea>
+      </div>
+
+      <div class="field">
+        <label>연락처 <span class="hint">(선택 · 답변이 필요하면 남겨주세요)</span></label>
+        <input type="tel" name="phone" placeholder="010-0000-0000" autocomplete="off" />
+      </div>
+
+      <button type="submit" class="submit-btn">건의 보내기</button>
+    </form>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

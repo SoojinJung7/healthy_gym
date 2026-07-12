@@ -12,42 +12,120 @@
 <body>
   <main class="shell">
     <div class="page-head">
-      <a class="back-btn" href="index.html">←</a>
+      <!-- 뒤로가기: 첫 단계에선 홈으로, 이후엔 이전 단계로 (facility.js가 처리) -->
+      <a class="back-btn" href="index.html" data-fac-back>←</a>
       <div>
         <h2>🛠️ 시설 건의하기</h2>
         <p>더 나은 센터를 위해 의견을 들려주세요</p>
       </div>
     </div>
 
-    <form class="card" data-form="facility">
+    <!-- ===== STEP 1 · 존 선택 ===== -->
+    <section class="fac-step" data-step="1">
+      <div class="fac-lead">
+        <h3>어디를 개선하면 좋을까요?</h3>
+        <p>위치를 눌러주세요</p>
+      </div>
+      <div class="zone-grid" data-zone-grid>
+        <button type="button" class="zone-btn" data-zone="A존">
+          <span class="zone-ico">🅰️</span>
+          <span class="zone-name">A존</span>
+        </button>
+        <button type="button" class="zone-btn" data-zone="중간">
+          <span class="zone-ico">🔀</span>
+          <span class="zone-name">중간</span>
+        </button>
+        <button type="button" class="zone-btn" data-zone="GX룸">
+          <span class="zone-ico">🤸</span>
+          <span class="zone-name">GX룸</span>
+        </button>
+        <button type="button" class="zone-btn" data-zone="B존">
+          <span class="zone-ico">🅱️</span>
+          <span class="zone-name">B존</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== STEP 2 · 안내 + 전화/녹음 ===== -->
+    <section class="fac-step" data-step="2" hidden>
+      <div class="zone-badge">선택한 위치 · <b data-zone-label>—</b></div>
+      <div class="fac-lead fac-lead--big">
+        <h3>수화기를 들고<br />개선점을 말씀해 주세요!</h3>
+        <p>전화로 바로 알리거나, 음성으로 건의를 남길 수 있어요</p>
+      </div>
+      <div class="fac-actions">
+        <a class="big-btn big-btn--line" data-gym-tel href="tel:">
+          <span class="big-btn-ico">📞</span>
+          <span class="big-btn-label">전화</span>
+        </a>
+        <button type="button" class="big-btn big-btn--fill" data-go-record>
+          <span class="big-btn-ico">🎙️</span>
+          <span class="big-btn-label">녹음</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== STEP 3 · 녹음/음성인식 ===== -->
+    <section class="fac-step" data-step="3" hidden>
+      <div class="zone-badge">선택한 위치 · <b data-zone-label>—</b></div>
+
+      <!-- 음성인식 지원 시 -->
+      <div class="rec-box" data-rec-live>
+        <div class="rec-pulse" data-rec-pulse><span></span></div>
+        <p class="rec-guide">말씀이 끝나면 아래 <b>‘완료’</b> 버튼을 눌러주세요</p>
+        <div class="rec-text" data-rec-text aria-live="polite">듣고 있어요…</div>
+      </div>
+
+      <!-- 폴백(미지원/권한거부) 시 -->
+      <div class="rec-fallback" data-rec-fallback hidden>
+        <p class="rec-fallback-msg" data-rec-fallback-msg>
+          음성 인식을 사용할 수 없어요. 아래에 직접 입력해 주세요.
+        </p>
+        <textarea data-rec-fallback-input placeholder="개선점을 입력해 주세요"></textarea>
+      </div>
+
+      <div class="fac-actions fac-actions--row">
+        <button type="button" class="submit-btn btn-ghost" data-rec-restart>다시 말하기</button>
+        <button type="button" class="submit-btn" data-rec-done>완료</button>
+      </div>
+    </section>
+
+    <!-- ===== STEP 4 · 확인 + 문자 옵트인 ===== -->
+    <section class="fac-step" data-step="4" hidden>
+      <div class="zone-badge">선택한 위치 · <b data-zone-label>—</b></div>
+
       <div class="field">
-        <label>건의 분류 <span class="hint">(복수 선택 가능)</span></label>
-        <div class="chips" data-name="category" data-required="건의 분류를 선택해 주세요.">
-          <div class="chip">운동기구</div>
-          <div class="chip">청결/위생</div>
-          <div class="chip">샤워실/탈의실</div>
-          <div class="chip">냉난방/환기</div>
-          <div class="chip">소음/음악</div>
-          <div class="chip">기타</div>
+        <label>건의 내용 <span class="hint">(잘못 인식된 부분은 수정해 주세요)</span></label>
+        <textarea data-confirm-text placeholder="건의 내용을 입력해 주세요"></textarea>
+      </div>
+
+      <div class="field">
+        <label>처리 결과를 문자로 받아보시겠습니까?</label>
+        <div class="sms-toggle" data-sms-toggle>
+          <button type="button" class="sms-opt on" data-sms="no">괜찮아요</button>
+          <button type="button" class="sms-opt" data-sms="yes">받을게요</button>
+        </div>
+        <div class="sms-phone" data-sms-phone hidden>
+          <input type="tel" data-confirm-phone placeholder="010-0000-0000" autocomplete="off" inputmode="tel" />
         </div>
       </div>
 
-      <div class="field">
-        <label>건의 내용</label>
-        <textarea name="message" placeholder="불편하셨던 점이나 개선 아이디어를 적어주세요"
-                  data-required="건의 내용을 입력해 주세요."></textarea>
-      </div>
+      <button type="button" class="submit-btn" data-fac-send>건의 보내기</button>
+    </section>
 
-      <div class="field">
-        <label>연락처 <span class="hint">(선택 · 답변이 필요하면 남겨주세요)</span></label>
-        <input type="tel" name="phone" placeholder="010-0000-0000" autocomplete="off" />
+    <!-- ===== STEP 5 · 완료 ===== -->
+    <section class="fac-step" data-step="5" hidden>
+      <div class="done">
+        <div class="check">✓</div>
+        <h2>접수되었습니다!</h2>
+        <p>소중한 의견 감사합니다.<br />데스크에서 확인 후 빠르게 도와드리겠습니다.</p>
+        <div class="countdown"><span data-fac-count>4</span>초 후 처음 화면으로 돌아갑니다</div>
       </div>
-
-      <button type="submit" class="submit-btn">건의 보내기</button>
-    </form>
+    </section>
   </main>
 
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/facility.js"></script>
 </body>
 </html>

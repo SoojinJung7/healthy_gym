@@ -26,10 +26,10 @@ window.GYM_CONFIG = {
   /* off-calendar Bearer 인증 키.
      주의: 이 값은 클라이언트(키오스크 브라우저)에 그대로 노출됩니다.
      반드시 insert(건의 추가) 전용 저권한 키를 발급해 사용하세요. */
-  facilityApiKey: "PASTE_FACILITY_KIOSK_API_KEY_HERE",
+  facilityApiKey: "hgym_3a206362d1495e9495490d626cf5b918d241ed0602d8386a",
 
   /* 이 헬스장 조직(org)의 UUID */
-  orgId: "PASTE_ORG_ID_UUID_HERE",
+  orgId: "d85d5b18-abda-4491-9f99-fcb19f51894e",
 
   /* 존 목록 (이 순서/문자열 그대로 off-calendar와 일치해야 함) */
   zones: ["A존", "중간", "GX룸", "B존"],

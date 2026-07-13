@@ -108,7 +108,8 @@
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   var recognition = null;
   var recActive = false;
-  var finalText = "";   // 확정된 인식 결과 누적
+  var committedText = "";   // 이전 인식 세션들에서 확정된 텍스트(자동 재시작 간 누적)
+  var sessionFinal = "";    // 현재 세션에서 확정된 텍스트(매 onresult마다 0부터 재조립)
 
   var liveBox = document.querySelector("[data-rec-live]");
   var fallbackBox = document.querySelector("[data-rec-fallback]");
@@ -143,7 +144,8 @@
       return;
     }
     showLive();
-    finalText = "";
+    committedText = "";
+    sessionFinal = "";
     setRecText("듣고 있어요…");
 
     try {
@@ -163,16 +165,20 @@
     };
 
     recognition.onresult = function (e) {
+      // 전체 results 배열을 매번 0부터 다시 조립한다.
+      // (모바일/태블릿은 continuous 재시작 시 이전 확정 결과를 배열에 남겨둔 채
+      //  다시 이벤트를 쏘기 때문에, resultIndex부터 += 로 누적하면 같은 구간이 중복됨)
       var interim = "";
-      for (var i = e.resultIndex; i < e.results.length; i++) {
+      sessionFinal = "";
+      for (var i = 0; i < e.results.length; i++) {
         var res = e.results[i];
         if (res.isFinal) {
-          finalText += res[0].transcript;
+          sessionFinal += res[0].transcript;
         } else {
           interim += res[0].transcript;
         }
       }
-      setRecText((finalText + interim).trim());
+      setRecText((committedText + sessionFinal + interim).trim());
       keepAwake(); // 말하는 동안 idle 타이머 리셋
     };
 
@@ -189,6 +195,11 @@
     recognition.onend = function () {
       recActive = false;
       setPulse(false);
+      // 재시작하면 results 배열이 비워지므로, 이번 세션의 확정분을 누적 텍스트로 옮긴다.
+      if (sessionFinal) {
+        committedText = (committedText + sessionFinal).trim() + " ";
+        sessionFinal = "";
+      }
       // continuous 인식이 자동 종료되면(예: 침묵) 녹음 단계에 머무는 동안 재개
       if (state.step === 3 && liveBox && !liveBox.hidden) {
         try { recognition.start(); } catch (err) { /* 이미 시작됨 등 무시 */ }
@@ -222,7 +233,8 @@
         return;
       }
       stopRecognition();
-      finalText = "";
+      committedText = "";
+      sessionFinal = "";
       setRecText("듣고 있어요…");
       startRecognition();
     });
@@ -239,7 +251,7 @@
       } else {
         // 화면에 표시된 텍스트(확정+중간 병합분)를 사용 — 마지막 미확정 발화까지 포함
         var shown = recTextEl ? recTextEl.textContent.trim() : "";
-        text = (shown && shown !== "듣고 있어요…") ? shown : finalText.trim();
+        text = (shown && shown !== "듣고 있어요…") ? shown : (committedText + sessionFinal).trim();
       }
 
       if (!text) {

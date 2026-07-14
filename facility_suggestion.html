@@ -90,24 +90,13 @@
       </div>
     </section>
 
-    <!-- ===== STEP 4 · 확인 + 문자 옵트인 ===== -->
+    <!-- ===== STEP 4 · 내용 확인 ===== -->
     <section class="fac-step" data-step="4" hidden>
       <div class="zone-badge">선택한 위치 · <b data-zone-label>—</b></div>
 
       <div class="field">
         <label>건의 내용 <span class="hint">(잘못 인식된 부분은 수정해 주세요)</span></label>
         <textarea data-confirm-text placeholder="건의 내용을 입력해 주세요"></textarea>
-      </div>
-
-      <div class="field">
-        <label>처리 결과를 문자로 받아보시겠습니까?</label>
-        <div class="sms-toggle" data-sms-toggle>
-          <button type="button" class="sms-opt on" data-sms="no">괜찮아요</button>
-          <button type="button" class="sms-opt" data-sms="yes">받을게요</button>
-        </div>
-        <div class="sms-phone" data-sms-phone hidden>
-          <input type="tel" data-confirm-phone placeholder="010-0000-0000" autocomplete="off" inputmode="tel" />
-        </div>
       </div>
 
       <button type="button" class="submit-btn" data-fac-send>건의 보내기</button>

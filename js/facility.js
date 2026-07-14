@@ -3,7 +3,7 @@
    - STEP 1: 존 선택
    - STEP 2: 안내 + 전화/녹음
    - STEP 3: 음성인식(Web Speech API) / 폴백 직접입력
-   - STEP 4: 내용 확인 + 문자 옵트인
+   - STEP 4: 내용 확인
    - STEP 5: 전송 완료
    전송 계약: off-calendar POST /api/public/facility-suggestions
    ========================================================= */
@@ -16,7 +16,6 @@
     step: 1,        // 현재 단계
     zone: "",       // 선택한 존
     content: "",    // 인식/입력된 건의 내용
-    notify: false,  // 문자 받기 여부
   };
 
   /* ---------- 자주 쓰는 엘리먼트 ---------- */
@@ -35,12 +34,6 @@
     t.textContent = msg;
     t.classList.add("show");
     setTimeout(function () { t.classList.remove("show"); }, 2200);
-  }
-
-  /* ---------- 전화번호 유효성 (app.js validPhone과 동일 규칙) ---------- */
-  function validPhone(v) {
-    var digits = (v || "").replace(/[^0-9]/g, "");
-    return digits.length >= 9 && digits.length <= 11;
   }
 
   /* ---------- 무동작 자동복귀 억제 (녹음 중 손을 안 대도 안 끊기게) ----------
@@ -267,27 +260,6 @@
   }
 
   /* =========================================================
-     STEP 4: 문자 옵트인 토글
-     ========================================================= */
-  var smsToggle = document.querySelector("[data-sms-toggle]");
-  var smsPhoneWrap = document.querySelector("[data-sms-phone]");
-  var confirmPhone = document.querySelector("[data-confirm-phone]");
-
-  if (smsToggle) {
-    smsToggle.addEventListener("click", function (e) {
-      var opt = e.target.closest(".sms-opt");
-      if (!opt) return;
-      smsToggle.querySelectorAll(".sms-opt").forEach(function (b) {
-        b.classList.toggle("on", b === opt);
-      });
-      var want = opt.getAttribute("data-sms") === "yes";
-      state.notify = want;
-      if (smsPhoneWrap) smsPhoneWrap.hidden = !want;
-      if (want && confirmPhone) confirmPhone.focus();
-    });
-  }
-
-  /* =========================================================
      STEP 4 → 전송
      ========================================================= */
   var sendBtn = document.querySelector("[data-fac-send]");
@@ -306,25 +278,12 @@
       }
       state.content = content;
 
-      // 전화번호 (문자 받기 선택 시에만)
-      var phone = "";
-      if (state.notify) {
-        phone = (confirmPhone && confirmPhone.value || "").trim();
-        if (!phone || !validPhone(phone)) {
-          toast("문자를 받을 번호를 정확히 입력해 주세요.");
-          if (confirmPhone) confirmPhone.focus();
-          return;
-        }
-      }
-
       var payload = {
         org_id: CFG.orgId || "",
         zone: state.zone,
         content: state.content,
-        notify_sms: state.notify,
         source: "kiosk",
       };
-      if (state.notify && phone) payload.phone = phone;
 
       send(payload, sendBtn);
     });

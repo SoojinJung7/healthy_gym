@@ -58,18 +58,13 @@ input, textarea { -webkit-user-select: text; user-select: text; }
   margin-bottom: 22px;
 }
 .brand .logo {
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
-  background: var(--accent);
-  color: #fff;
+  height: 112px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 34px;
   margin-bottom: 12px;
-  box-shadow: var(--shadow);
 }
+.brand .logo img { height: 100%; width: auto; display: block; }
 .brand h1 {
   font-size: 30px;
   margin: 0;
@@ -548,3 +543,110 @@ textarea { min-height: 120px; resize: none; }
   border: 1px solid var(--line);
 }
 .btn-ghost:active { background: var(--bg-soft); }
+
+/* =========================================================
+   가로(landscape) 키오스크 레이아웃
+   ─ 가로형 터치모니터(핸드폰 공기계 연결) 기준.
+   ─ 세로(모바일)에서는 위쪽 기본 스타일이 그대로 폴백으로 유지된다.
+   ─ orientation:landscape(가로가 세로보다 넓을 때)에만 아래 규칙이 켜진다.
+   ========================================================= */
+@media (orientation: landscape) {
+  /* 키오스크: 한 화면에 담고 페이지 전체 스크롤은 막는다(필요한 곳만 내부 스크롤) */
+  body { overflow: hidden; }
+
+  .shell {
+    max-width: 1440px;
+    height: 100vh;
+    min-height: 0;
+    padding: 32px 56px;
+  }
+
+  /* ---------- 홈: 좌(브랜드 히어로) / 우(메뉴 2×2) 분할 ---------- */
+  .shell--home {
+    display: grid;
+    grid-template-columns: 0.82fr 1.18fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      "brand menu"
+      "tel   menu";
+    column-gap: 56px;
+    row-gap: 24px;
+    align-items: center;
+  }
+  .shell--home .brand {
+    grid-area: brand;
+    text-align: left;
+    margin: 0;
+    align-self: center;
+  }
+  .shell--home .brand .logo {
+    height: 190px;
+    margin-bottom: 18px;
+  }
+  .shell--home .brand h1 { font-size: 48px; }
+  .shell--home .brand p { font-size: 21px; margin-top: 12px; }
+
+  .shell--home .menu-grid {
+    grid-area: menu;
+    height: 100%;
+    grid-template-rows: 1fr 1fr;
+    gap: 22px;
+  }
+  .shell--home .menu-card { min-height: 0; padding: 20px; gap: 12px; }
+  .shell--home .menu-card .ico { width: 76px; height: 76px; font-size: 38px; }
+  .shell--home .menu-card .label { font-size: 23px; }
+
+  .shell--home .tel-bar { grid-area: tel; margin: 0; }
+
+  /* ---------- 서브 페이지 공통: 헤더 고정 + 본문이 남은 높이 채우기 ---------- */
+  .shell--form,
+  .shell--coaches,
+  .shell--facility {
+    display: flex;
+    flex-direction: column;
+  }
+  .shell--form .page-head,
+  .shell--coaches .page-head,
+  .shell--facility .page-head { margin-bottom: 18px; }
+
+  /* ---------- 폼(문의/체험): 2열 배치, 카드 내부만 스크롤 ---------- */
+  .shell--form .card {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 36px;
+    align-content: start;
+  }
+  .shell--form .field { margin-bottom: 0; }
+  .shell--form .field--wide { grid-column: 1 / -1; }
+  .shell--form .submit-btn { grid-column: 1 / -1; margin-top: 6px; }
+  .shell--form textarea { min-height: 96px; }
+
+  /* ---------- 강사 프로필: 화면 폭에 맞춰 여러 열 ---------- */
+  .shell--coaches .coach-list {
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    align-content: start;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+  .shell--coaches .tel-bar { margin-top: 18px; }
+
+  /* ---------- 시설 건의(음성): 넓은 화면에서 중앙 정렬 + 폭 제한 ---------- */
+  .shell--facility .fac-lead--big h3 { font-size: 40px; }
+  .shell--facility .zone-grid {
+    max-width: 1120px; width: 100%;
+    margin: 0 auto;
+    align-self: center;
+  }
+  .shell--facility .fac-actions,
+  .shell--facility .rec-box,
+  .shell--facility .rec-fallback,
+  .shell--facility .field,
+  .shell--facility .done {
+    max-width: 780px; width: 100%;
+    margin-left: auto; margin-right: auto;
+  }
+}

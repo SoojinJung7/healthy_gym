@@ -58,7 +58,7 @@ input, textarea { -webkit-user-select: text; user-select: text; }
   margin-bottom: 22px;
 }
 .brand .logo {
-  height: 112px;
+  height: 92px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -583,7 +583,7 @@ textarea { min-height: 120px; resize: none; }
     align-items: flex-start;
   }
   .shell--home .brand .logo {
-    height: 190px;
+    height: 150px;
     margin-bottom: 18px;
   }
   .shell--home .brand h1 { font-size: 48px; }

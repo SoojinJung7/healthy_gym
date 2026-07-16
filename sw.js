@@ -1,6 +1,6 @@
 /* 간단한 서비스워커 — 정적 파일 캐시로 오프라인/빠른 로딩 지원
    파일을 수정하면 아래 CACHE 버전을 올려 갱신하세요. */
-var CACHE = "healthy-gym-v7";
+var CACHE = "healthy-gym-v8";
 var ASSETS = [
   "index.html",
   "quick_inquiry.html",

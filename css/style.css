@@ -246,6 +246,16 @@ textarea { min-height: 120px; resize: none; }
 .submit-btn:active { background: var(--accent-dark); }
 .submit-btn:disabled { opacity: .55; }
 
+/* 폼 하단 안내 문구 */
+.form-note {
+  margin: 2px 0 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-sub);
+  text-align: center;
+}
+.form-note b { color: var(--ink); font-weight: 700; }
+
 /* ---------- 강사 프로필 ---------- */
 .coach-list {
   display: grid;
@@ -441,6 +451,7 @@ textarea { min-height: 120px; resize: none; }
   margin-top: auto;
 }
 .fac-actions--row { grid-template-columns: 1fr 1fr; margin-top: 24px; }
+.fac-actions--single { grid-template-columns: 1fr; }
 .big-btn {
   appearance: none;
   border: 1px solid var(--line);
@@ -564,13 +575,9 @@ textarea { min-height: 120px; resize: none; }
   /* ---------- 홈: 좌(브랜드 히어로) / 우(메뉴 2×2) 분할 ---------- */
   .shell--home {
     display: grid;
-    grid-template-columns: 0.82fr 1.18fr;
-    grid-template-rows: 1fr auto;
-    grid-template-areas:
-      "brand menu"
-      "tel   menu";
+    grid-template-columns: 0.76fr 1.24fr;
+    grid-template-areas: "brand menu";
     column-gap: 56px;
-    row-gap: 24px;
     align-items: center;
   }
   .shell--home .brand {
@@ -592,12 +599,15 @@ textarea { min-height: 120px; resize: none; }
   .shell--home .menu-grid {
     grid-area: menu;
     height: 100%;
-    grid-template-rows: 1fr 1fr;
-    gap: 22px;
+    /* 행 높이에 상한을 둬 카드가 세로로 과하게 늘어나지 않게 하고, 세로 가운데 정렬 */
+    grid-template-rows: repeat(2, minmax(0, 320px));
+    align-content: center;
+    gap: 28px;
   }
-  .shell--home .menu-card { min-height: 0; padding: 20px; gap: 12px; }
-  .shell--home .menu-card .ico { width: 76px; height: 76px; font-size: 38px; }
-  .shell--home .menu-card .label { font-size: 23px; }
+  .shell--home .menu-card { min-height: 0; padding: 24px; gap: 16px; }
+  .shell--home .menu-card .ico { width: 92px; height: 92px; font-size: 46px; }
+  .shell--home .menu-card .label { font-size: 26px; }
+  .shell--home .menu-card .desc { font-size: 16px; }
 
   .shell--home .tel-bar { grid-area: tel; margin: 0; }
 

@@ -1,6 +1,6 @@
 /* 간단한 서비스워커 — 정적 파일 캐시로 오프라인/빠른 로딩 지원
-   파일을 수정하면 아래 CACHE 버전을 올려 갱신하세요. */
-var CACHE = "healthy-gym-v8";
+   ※ CACHE 버전은 커밋 시 .githooks/pre-commit 훅이 자동으로 올려줍니다. */
+var CACHE = "healthy-gym-v9";
 var ASSETS = [
   "index.html",
   "quick_inquiry.html",
@@ -11,6 +11,7 @@ var ASSETS = [
   "css/style.css",
   "js/config.js",
   "js/app.js",
+  "js/facility.js",
   "manifest.json",
   "images/icon.svg",
   "images/logo.png",
@@ -34,11 +35,19 @@ self.addEventListener("activate", function (e) {
 });
 
 self.addEventListener("fetch", function (e) {
-  // 폼 전송(POST)은 캐시하지 않고 항상 네트워크로
+  // 폼 전송(POST) 등은 캐시하지 않고 항상 네트워크로
   if (e.request.method !== "GET") return;
+  // 네트워크 우선: 온라인이면 항상 최신을 받고, 받은 응답으로 캐시를 갱신.
+  // 네트워크가 안 되면(오프라인) 그때만 캐시로 폴백.
   e.respondWith(
-    caches.match(e.request).then(function (hit) {
-      return hit || fetch(e.request);
-    })
+    fetch(e.request)
+      .then(function (res) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
+        return res;
+      })
+      .catch(function () {
+        return caches.match(e.request);
+      })
   );
 });

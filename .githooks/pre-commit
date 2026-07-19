@@ -1,0 +1,21 @@
+#!/bin/sh
+# 커밋할 때 정적 자산(html/css/js/이미지 등)이 변경되면
+# sw.js 의 캐시 버전(healthy-gym-vN)을 자동으로 +1 올려 재스테이징한다.
+# → 배포 후 브라우저가 옛 캐시를 버리고 최신 파일을 받도록 보장.
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+
+# 자산 변경이 없으면 아무것도 하지 않음
+echo "$staged" | grep -Eq '\.(html|css|js|json|png|svg|webmanifest)$' || exit 0
+
+# sw.js "만" 바뀐 경우엔 중복 증가 방지 위해 스킵
+if echo "$staged" | grep -Ev '^sw\.js$' | grep -Eq '\.(html|css|js|json|png|svg|webmanifest)$'; then
+  cur=$(grep -oE 'healthy-gym-v[0-9]+' sw.js | head -1 | grep -oE '[0-9]+')
+  [ -z "$cur" ] && exit 0
+  next=$((cur + 1))
+  sed -i "s/healthy-gym-v${cur}\"/healthy-gym-v${next}\"/" sw.js
+  git add sw.js
+  echo "[pre-commit] sw.js 캐시 버전 v${cur} → v${next} 자동 증가"
+fi
+
+exit 0

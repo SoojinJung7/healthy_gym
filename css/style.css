@@ -256,34 +256,81 @@ textarea { min-height: 120px; resize: none; }
 }
 .form-note b { color: var(--ink); font-weight: 700; }
 
-/* ---------- 강사 프로필 ---------- */
+/* ---------- 강사 프로필 (세로형 카드 그리드) ---------- */
 .coach-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
 }
 .coach {
   display: flex;
-  gap: 18px;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 24px 18px 20px;
   box-shadow: var(--shadow);
+  transition: transform .18s ease, box-shadow .18s ease;
 }
-.coach img {
-  width: 96px;
-  height: 96px;
-  border-radius: 18px;
+.coach:active { transform: translateY(2px); }
+
+/* 이니셜 아바타: 카드마다 --c1/--c2 두 색으로 그라데이션 */
+.coach__avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--c1, #60A5FA), var(--c2, #2563EB));
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--c2, #2563EB) 35%, transparent);
+  margin-bottom: 14px;
+  user-select: none;
+}
+/* 실제 사진을 쓸 때 아바타 자리에 넣는 이미지 */
+.coach__photo {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
   object-fit: cover;
   background: var(--accent-soft);
-  flex: 0 0 96px;
+  margin-bottom: 14px;
 }
-.coach .info h3 { margin: 0 0 4px; font-size: 20px; }
-.coach .info .role { color: var(--accent); font-weight: 700; font-size: 14px; }
-.coach .info p { margin: 8px 0 0; color: var(--ink-sub); font-size: 14px; line-height: 1.5; }
-.coach .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* 이름을 가장 크고 또렷하게 */
+.coach__name {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.coach .role {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+}
+.coach p {
+  margin: 12px 0 0;
+  color: var(--ink-sub);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.coach .tags {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
 .coach .tags span {
   font-size: 12px;
   padding: 4px 10px;
@@ -637,13 +684,15 @@ textarea { min-height: 120px; resize: none; }
   .shell--form .submit-btn { grid-column: 1 / -1; margin-top: 6px; }
   .shell--form textarea { min-height: 96px; }
 
-  /* ---------- 강사 프로필: 화면 폭에 맞춰 여러 열 ---------- */
+  /* ---------- 강사 프로필: 화면 폭에 맞춰 여러 열(카드가 공평하게) ---------- */
   .shell--coaches .coach-list {
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     align-content: start;
+    gap: 20px;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
+    padding-right: 4px;
   }
   .shell--coaches .tel-bar { margin-top: 18px; }
 

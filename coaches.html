@@ -19,20 +19,82 @@
       </div>
     </div>
 
-    <!-- ▼ 트레이너 정보는 이 블록을 복사/수정해서 늘리거나 줄이면 됩니다.
-         사진은 images/ 폴더에 넣고 src 경로만 바꿔주세요. -->
+    <!-- ▼ 트레이너 카드는 이 블록을 복사/수정해서 늘리거나 줄이면 됩니다.
+         · 이름/역할/소개/태그만 바꾸면 됩니다.
+         · 아바타 색은 style="--c1:#..;--c2:#.." 두 색만 바꾸면 그라데이션이 바뀝니다.
+         · 실제 사진을 쓰려면 아바타 <div>를 <img class="coach__photo" src="images/파일명"> 로 교체하세요. -->
     <div class="coach-list">
 
       <div class="coach">
-        <img src="images/coach-placeholder.svg" alt="안승은 트레이너" />
-        <div class="info">
-          <h3>안승은</h3>
-          <div class="role">PT 트레이너</div>
-          <p>섬세한 티칭으로 한 분 한 분의 자세와 컨디션에 맞춰 지도합니다.</p>
-          <div class="tags">
-            <span>개인 PT</span><span>섬세한 티칭</span><span>초보환영</span>
-          </div>
-        </div>
+        <div class="coach__avatar" style="--c1:#60A5FA;--c2:#2563EB">안</div>
+        <h3 class="coach__name">안승은</h3>
+        <div class="role">PT 트레이너</div>
+        <p>섬세한 티칭으로 한 분 한 분의 자세와 컨디션에 맞춰 지도합니다.</p>
+        <div class="tags"><span>개인 PT</span><span>섬세한 티칭</span><span>초보환영</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#A78BFA;--c2:#7C3AED">김</div>
+        <h3 class="coach__name">김도현</h3>
+        <div class="role">웨이트 트레이너</div>
+        <p>기초 근력부터 벌크업까지, 목표에 맞춘 단계별 프로그램을 설계합니다.</p>
+        <div class="tags"><span>근력강화</span><span>벌크업</span><span>자세교정</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#F472B6;--c2:#DB2777">이</div>
+        <h3 class="coach__name">이서연</h3>
+        <div class="role">필라테스 강사</div>
+        <p>코어를 중심으로 몸의 균형을 잡아 바른 체형으로 이끌어 드립니다.</p>
+        <div class="tags"><span>코어강화</span><span>체형교정</span><span>재활</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#FB923C;--c2:#EA580C">박</div>
+        <h3 class="coach__name">박준영</h3>
+        <div class="role">크로스핏 코치</div>
+        <p>즐거운 그룹 수업으로 체력과 다이어트 두 마리 토끼를 잡아 드립니다.</p>
+        <div class="tags"><span>체력향상</span><span>다이어트</span><span>그룹수업</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#34D399;--c2:#059669">최</div>
+        <h3 class="coach__name">최유진</h3>
+        <div class="role">요가 강사</div>
+        <p>호흡과 스트레칭으로 몸과 마음을 함께 풀어 주는 힐링 클래스를 진행합니다.</p>
+        <div class="tags"><span>유연성</span><span>스트레칭</span><span>힐링</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#22D3EE;--c2:#0891B2">정</div>
+        <h3 class="coach__name">정민수</h3>
+        <div class="role">재활 트레이너</div>
+        <p>통증과 부상 이력을 꼼꼼히 살펴 안전한 1:1 맞춤 회복을 돕습니다.</p>
+        <div class="tags"><span>통증관리</span><span>부상회복</span><span>1:1맞춤</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#FBBF24;--c2:#D97706">강</div>
+        <h3 class="coach__name">강하늘</h3>
+        <div class="role">다이어트 코치</div>
+        <p>식단과 운동을 함께 관리해 바디프로필까지 완주하도록 이끌어 드립니다.</p>
+        <div class="tags"><span>체지방감량</span><span>식단관리</span><span>바디프로필</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#818CF8;--c2:#4F46E5">윤</div>
+        <h3 class="coach__name">윤지아</h3>
+        <div class="role">그룹 트레이너</div>
+        <p>신나는 음악과 함께하는 GX·유산소 수업으로 운동이 즐거워집니다.</p>
+        <div class="tags"><span>GX</span><span>유산소</span><span>즐거운수업</span></div>
+      </div>
+
+      <div class="coach">
+        <div class="coach__avatar" style="--c1:#F87171;--c2:#DC2626">송</div>
+        <h3 class="coach__name">송태호</h3>
+        <div class="role">스트렝스 코치</div>
+        <p>파워리프팅 기반 트레이닝으로 근비대와 대회 준비를 체계적으로 지원합니다.</p>
+        <div class="tags"><span>파워리프팅</span><span>근비대</span><span>대회준비</span></div>
       </div>
 
     </div>

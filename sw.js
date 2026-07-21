@@ -1,6 +1,6 @@
 /* 간단한 서비스워커 — 정적 파일 캐시로 오프라인/빠른 로딩 지원
    ※ CACHE 버전은 커밋 시 .githooks/pre-commit 훅이 자동으로 올려줍니다. */
-var CACHE = "healthy-gym-v11";
+var CACHE = "healthy-gym-v12";
 var ASSETS = [
   "index.html",
   "quick_inquiry.html",
@@ -47,7 +47,8 @@ self.addEventListener("fetch", function (e) {
         return res;
       })
       .catch(function () {
-        return caches.match(e.request);
+        // 오프라인 폴백: ?v= 같은 버전 쿼리는 무시하고 매칭
+        return caches.match(e.request, { ignoreSearch: true });
       })
   );
 });

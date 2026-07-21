@@ -16,6 +16,14 @@ if echo "$staged" | grep -Ev '^sw\.js$' | grep -Eq '\.(html|css|js|json|png|svg|
   sed -i "s/healthy-gym-v${cur}\"/healthy-gym-v${next}\"/" sw.js
   git add sw.js
   echo "[pre-commit] sw.js 캐시 버전 v${cur} → v${next} 자동 증가"
+
+  # HTML의 css/js 링크에 ?v=${next} 버전 쿼리를 찍어 브라우저 HTTP 캐시를 무효화한다.
+  for f in *.html; do
+    [ -f "$f" ] || continue
+    sed -i -E "s#(href=\"css/style\.css)(\?v=[0-9]+)?\"#\1?v=${next}\"#g; s#(src=\"js/[A-Za-z0-9_-]+\.js)(\?v=[0-9]+)?\"#\1?v=${next}\"#g" "$f"
+    git add "$f"
+  done
+  echo "[pre-commit] HTML 자산 링크에 ?v=${next} 스탬프 완료"
 fi
 
 exit 0

@@ -273,8 +273,22 @@ textarea { min-height: 120px; resize: none; }
   padding: 24px 18px 20px;
   box-shadow: var(--shadow);
   transition: transform .18s ease, box-shadow .18s ease;
+  /* 카드 전체가 상세로 가는 링크 */
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  position: relative;
 }
-.coach:active { transform: translateY(2px); }
+.coach::after {
+  content: "자세히 보기 →";
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  opacity: .75;
+}
+.coach:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.coach:active { transform: translateY(0); }
 
 /* 이니셜 아바타: 카드마다 --c1/--c2 두 색으로 그라데이션 */
 .coach__avatar {
@@ -337,6 +351,113 @@ textarea { min-height: 120px; resize: none; }
   border-radius: 999px;
   background: var(--bg-soft);
   color: var(--ink-sub);
+}
+
+/* ---------- 강사 상세 (좌: 프로그램 / 우: 사진) ---------- */
+.coach-detail { display: flex; }
+.cd-card {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  align-items: stretch;
+}
+.cd-info { display: flex; flex-direction: column; min-width: 0; }
+.cd-name {
+  margin: 0 0 10px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.cd-info .role {
+  align-self: flex-start;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+}
+.cd-intro {
+  margin: 16px 0 0;
+  color: var(--ink-sub);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.cd-tags { margin-top: 14px; justify-content: flex-start; }
+
+.cd-programs { margin-top: 22px; }
+.cd-programs__label {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.cd-prog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cd-prog {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.cd-prog__num {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+}
+.cd-prog__txt { font-size: 16px; font-weight: 700; color: var(--ink); }
+
+.cd-photo { display: flex; }
+.cd-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 18px;
+  background: var(--accent-soft);
+}
+.cd-photo .coach__avatar--xl {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  border-radius: 18px;
+  font-size: 96px;
+  margin: 0;
+}
+
+/* 좁은 화면: 위(사진) → 아래(정보)로 세로 배치 */
+@media (max-width: 640px) {
+  .cd-card { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .cd-photo { order: -1; }
+  .cd-photo img, .cd-photo .coach__avatar--xl {
+    height: auto;
+    max-height: 340px;
+    aspect-ratio: 4 / 3;
+  }
 }
 
 /* ---------- 전송 완료 ---------- */
@@ -661,12 +782,14 @@ textarea { min-height: 120px; resize: none; }
   /* ---------- 서브 페이지 공통: 헤더 고정 + 본문이 남은 높이 채우기 ---------- */
   .shell--form,
   .shell--coaches,
+  .shell--coach-detail,
   .shell--facility {
     display: flex;
     flex-direction: column;
   }
   .shell--form .page-head,
   .shell--coaches .page-head,
+  .shell--coach-detail .page-head,
   .shell--facility .page-head { margin-bottom: 18px; }
 
   /* ---------- 폼(문의/체험): 2열 배치, 카드 내부만 스크롤 ---------- */
@@ -695,6 +818,16 @@ textarea { min-height: 120px; resize: none; }
     padding-right: 4px;
   }
   .shell--coaches .tel-bar { margin-top: 18px; }
+
+  /* ---------- 강사 상세: 카드가 남은 높이를 채우고 내부만 스크롤 ---------- */
+  .shell--coach-detail .coach-detail {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+  .shell--coach-detail .cd-card { max-width: 1100px; width: 100%; margin: 0 auto; }
+  .shell--coach-detail .cd-name { font-size: 34px; }
+  .shell--coach-detail .tel-bar { margin-top: 18px; }
 
   /* ---------- 시설 건의(음성): 넓은 화면에서 중앙 정렬 + 폭 제한 ---------- */
   .shell--facility .fac-lead--big h3 { font-size: 40px; }

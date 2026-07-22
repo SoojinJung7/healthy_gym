@@ -65,6 +65,7 @@
       return "<span>" + esc(t) + "</span>";
     }).join("");
 
+    var photoCls = "cd-photo" + (c.detailFit === "contain" ? " cd-photo--contain" : "");
     var media = c.detailPhoto
       ? '<img src="' + esc(c.detailPhoto) + '" alt="' + esc(c.name) + ' 트레이너" />'
       : avatar(c, "coach__avatar--xl");
@@ -81,7 +82,7 @@
             '<ol class="cd-prog-list">' + programs + "</ol>" +
           "</div>" +
         "</div>" +
-        '<div class="cd-photo">' + media + "</div>" +
+        '<div class="' + photoCls + '">' + media + "</div>" +
       "</article>";
   }
 })();

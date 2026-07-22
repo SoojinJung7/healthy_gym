@@ -12,7 +12,8 @@ window.COACHES = [
     name: "최명석",
     role: "시니어·기능성 트레이닝 전문",
     photo: "images/coach-choi-face.jpg",
-    detailPhoto: "images/coach-choi.jpg",
+    detailPhoto: "images/coach-choi-poster.jpg",
+    detailFit: "contain",   /* 원본 포스터를 잘림 없이 그대로 표시 */
     intro: "운동경력 23년, 트레이너경력 15년. 시니어와 기능성 트레이닝을 전문으로, 건강한 삶을 위한 맞춤 운동을 지도합니다.",
     tags: ["시니어케어", "기능성운동", "재활"],
     programs: ["무릎 재활 컨디셔닝", "허리 통증개선", "기초체력 안전증진"],

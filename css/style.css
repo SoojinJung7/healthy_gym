@@ -449,6 +449,16 @@ textarea { min-height: 120px; resize: none; }
   margin: 0;
 }
 
+/* 원본 이미지(포스터 등)를 잘림 없이 자연 비율 그대로 표시 */
+.cd-photo--contain { align-items: flex-start; justify-content: center; }
+.cd-photo--contain img {
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(17, 24, 39, 0.10);
+}
+
 /* 좁은 화면: 위(사진) → 아래(정보)로 세로 배치 */
 @media (max-width: 640px) {
   .cd-card { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
@@ -457,6 +467,12 @@ textarea { min-height: 120px; resize: none; }
     height: auto;
     max-height: 340px;
     aspect-ratio: 4 / 3;
+  }
+  /* 원본 포스터는 자연 비율 유지(크롭/레터박스 없이 전체 보이게) */
+  .cd-photo--contain img {
+    aspect-ratio: auto;
+    max-height: 70vh;
+    width: 100%;
   }
 }
 

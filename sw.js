@@ -1,6 +1,6 @@
 /* 간단한 서비스워커 — 정적 파일 캐시로 오프라인/빠른 로딩 지원
    ※ CACHE 버전은 커밋 시 .githooks/pre-commit 훅이 자동으로 올려줍니다. */
-var CACHE = "healthy-gym-v15";
+var CACHE = "healthy-gym-v16";
 var ASSETS = [
   "index.html",
   "quick_inquiry.html",
@@ -20,7 +20,9 @@ var ASSETS = [
   "images/logo.png",
   "images/coach-placeholder.svg",
   "images/coach-choi-poster.jpg",
-  "images/coach-choi-face.jpg"
+  "images/coach-choi-face.jpg",
+  "images/coach-an-poster.jpg",
+  "images/coach-an-face.jpg"
 ];
 
 self.addEventListener("install", function (e) {

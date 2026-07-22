@@ -21,7 +21,10 @@ window.COACHES = [
   {
     id: "an",
     name: "안승은",
-    role: "PT 트레이너",
+    role: "1:1 퍼스널 전문 트레이너",
+    photo: "images/coach-an-face.jpg",
+    detailPhoto: "images/coach-an-poster.jpg",
+    detailFit: "contain",   /* 원본 포스터를 잘림 없이 그대로 표시 */
     initial: "안", c1: "#60A5FA", c2: "#2563EB",
     intro: "섬세한 티칭으로 한 분 한 분의 자세와 컨디션에 맞춰 지도합니다.",
     tags: ["개인 PT", "섬세한 티칭", "초보환영"],
